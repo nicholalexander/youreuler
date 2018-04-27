@@ -10,6 +10,7 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
+1. Heroku Deploy
 7. Shotgun
 8. Guard
 9. Redis

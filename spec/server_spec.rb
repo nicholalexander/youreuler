@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'the server' do
   it 'should all access to the home page' do
     get '/'

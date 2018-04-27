@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'blurgh'
 
 RSpec.describe Blurgh do
