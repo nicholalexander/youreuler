@@ -1,9 +1,11 @@
-require "rspec/core/rake_task"
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new
 
-task default: %w[hello spec]
+task default: %w[hello spec rubocop]
 
 task :hello do
-  puts "hello from youreul!"
+  puts 'hello from youreul!'
 end

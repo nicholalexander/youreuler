@@ -10,7 +10,6 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-4. Rspec
 6. Rubocop
 7. Shotgun
 9. Redis

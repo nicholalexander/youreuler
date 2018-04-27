@@ -1,7 +1,5 @@
 class Blurgh
-
-  def self.hello 
+  def self.hello
     'BLURGH!'
   end
-
 end
