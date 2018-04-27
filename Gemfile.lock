@@ -14,6 +14,7 @@ GEM
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
+    rake (12.3.1)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -48,9 +49,13 @@ PLATFORMS
 
 DEPENDENCIES
   rack-test
+  rake
   rspec
   rubocop
   sinatra
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.16.0
