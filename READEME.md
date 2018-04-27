@@ -11,12 +11,15 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 ## TODO
 
 1. Directory Structure
-2. Shotgun
-3. Rspec
-4. config.ru
+2. Gemfile
+3. Rake
+4. Rspec
 5. Empty Sinatra app.
-6. Redis
-7. URL shortener
+6. Rubocop
+7. Shotgun
+8. config.ru
+9. Redis
+10. URL shortener
 
 ## Requirements
 
@@ -36,3 +39,8 @@ The project should include a README file with instructions for running the web s
 
 The project should be packaged as a compressed archive (e.g. a zip file).
 
+
+## Topics for Discussion
+1. scaffolding
+2. if the shortener should be a gem included into my project.
+3. 
