@@ -5,6 +5,7 @@ ruby '2.4.1'
 
 gem 'rake'
 gem 'sinatra'
+gem 'sinatra-contrib'
 
 group :test, :development do
   gem 'rack-test'

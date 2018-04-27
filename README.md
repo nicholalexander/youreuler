@@ -10,7 +10,6 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-1. Heroku Deploy
 7. Shotgun
 8. Guard
 9. Redis
@@ -39,3 +38,26 @@ The project should be packaged as a compressed archive (e.g. a zip file).
 1. scaffolding
 2. if the shortener should be a gem included into my project.
 3. Tooling & Project Setup
+4. Where the redis client lives.
+5. client.write / client.read
+
+## Notes
+
+request:
+{
+  url:
+  slug:
+}
+
+response:
+{
+  url:
+  short_url:
+}
+
+routes:
+GET / - api index
+POST /shorten - create a link and return a response
+GET /[slug]/pattern - resolve and redirect
+
+https://github.com/Netflix/fast_jsonapi
