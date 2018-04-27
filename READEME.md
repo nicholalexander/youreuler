@@ -10,14 +10,9 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-1. Directory Structure
-2. Gemfile
-3. Rake
 4. Rspec
-5. Empty Sinatra app.
 6. Rubocop
 7. Shotgun
-8. config.ru
 9. Redis
 10. URL shortener
 
