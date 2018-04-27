@@ -13,7 +13,6 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'blurgh'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

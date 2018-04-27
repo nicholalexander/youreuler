@@ -10,8 +10,8 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-6. Rubocop
 7. Shotgun
+8. Guard
 9. Redis
 10. URL shortener
 
@@ -37,4 +37,4 @@ The project should be packaged as a compressed archive (e.g. a zip file).
 ## Topics for Discussion
 1. scaffolding
 2. if the shortener should be a gem included into my project.
-3. 
+3. Tooling & Project Setup

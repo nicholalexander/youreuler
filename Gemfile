@@ -6,6 +6,7 @@ gem 'sinatra'
 
 group :test, :development do
   gem 'rspec'
+  gem 'rack-test'
 end
 
 gem 'rubocop', require: false
