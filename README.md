@@ -13,7 +13,11 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 7. Shotgun
 8. Guard
 9. Redis
+2. sinatra before blocks on namespace routes
 10. URL shortener
+11. thin
+12. use settings file for messages, etc - http://sinatrarb.com/contrib/config_file
+
 
 ## Requirements
 
@@ -33,6 +37,8 @@ The project should include a README file with instructions for running the web s
 
 The project should be packaged as a compressed archive (e.g. a zip file).
 
+Questions
+1. do we not actually handle the redirection or a getting of the link?
 
 ## Topics for Discussion
 1. scaffolding
@@ -40,6 +46,7 @@ The project should be packaged as a compressed archive (e.g. a zip file).
 3. Tooling & Project Setup
 4. Where the redis client lives.
 5. client.write / client.read
+6. postman bundle?
 
 ## Notes
 
