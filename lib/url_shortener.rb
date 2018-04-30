@@ -3,7 +3,7 @@
 class UrlShortener
   def initialize(store_client); end
 
-  def shorten(_payload)
+  def shorten(payload)
     # shorten business
     # store
     # return
