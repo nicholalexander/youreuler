@@ -8,7 +8,7 @@ require 'redis'
 
 require './lib/url_shortener'
 
-if development? do
+if development?
   require 'sinatra/reloader'
   require 'pry'
 end
@@ -25,7 +25,7 @@ configure do
 end
 
 get '/' do
-  "You're Ul"
+  send_file 'views/index.html'
 end
 
 get '/*' do

@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Youreuler</title>
+  <meta name="description" content="Shortenify Urls!">
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+  <h1> Youreuler </h1>
+
+  <p> Thanks for checking Youreuler out.  Do you have a URL?  Is it too long?  We have an api for that!  Check it! </p>
+
+  <p> Send a <code> POST </code> request to <code> /api/shorten </code> with the following body:
+
+  <pre>
+    {
+      "original_url": "http://google.com/"
+    }
+  </pre>
+
+  And we'll send you back something like this:
+
+  <pre>
+    {
+      "original_url": "http://google.com/",
+      "short_url": "http://youreuler.com/Itn0aD",
+      "short_code": "Itn0aD",
+      "slug": null
+    }
+  </pre>
+
+  <p> That's all I got. </p>
+</body>
+</html>
