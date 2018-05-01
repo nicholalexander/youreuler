@@ -6,20 +6,21 @@ require 'sinatra/namespace'
 require 'sinatra/config_file'
 require 'redis'
 
-require 'sinatra/reloader' if development?
-require 'pry' if development?
-
 require './lib/url_shortener'
 
+if development? do
+  require 'sinatra/reloader'
+  require 'pry'
+end
+
 configure do
-  set :environment, :production
   if development?
     config_file './config/development.yml'
   elsif production?
     config_file './config/production.yml'
   end
 
-  URL_SHORTENER = UrlShortener.new(:redis, settings.base_url)
+  URL_SHORTENER = UrlShortener.new(settings.base_url)
   REDIS = Redis.new(url: settings.redis_url)
 end
 

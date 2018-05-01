@@ -7,8 +7,7 @@ class UrlShortener
 
   CHARACTER_SPACE_SIZE = CHARACTER_SPACE.size
 
-  def initialize(storage_client, base_url)
-    @storage_client = storage_client
+  def initialize(base_url)
     @base_url = base_url
   end
 
