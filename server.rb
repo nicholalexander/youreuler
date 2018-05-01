@@ -14,7 +14,7 @@ configure do
   if development?
     set :base_url, 'http://localhost:4567/'
   else
-    set :base_url, 'http://youreul.com/'
+    set :base_url, 'http://youreuler.com/'
   end
   URL_SHORTENER = UrlShortener.new(:redis, settings.base_url)
   if development?

@@ -26,11 +26,6 @@ class UrlShortener
     }
   end
 
-  def resolve(payload)
-    # lookup
-    # return
-  end
-
   private
 
   def generate_short_url(slug)

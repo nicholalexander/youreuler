@@ -12,13 +12,11 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 7. Shotgun
 8. Guard
-9. Redis
 2. sinatra before blocks on namespace routes
-10. URL shortener
-11. thin
+11. thin?
 12. use settings file for messages, etc - http://sinatrarb.com/contrib/config_file
 13. rake file to start redis
-
+14. view folder for base
 
 ## Requirements
 
