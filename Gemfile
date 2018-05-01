@@ -7,7 +7,6 @@ gem 'rake'
 gem 'redis'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'thin'
 
 group :test, :development do
   gem 'rack-test'
