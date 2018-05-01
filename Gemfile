@@ -9,8 +9,10 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 
 group :test, :development do
+  gem 'pry'
   gem 'rack-test'
   gem 'rspec'
+  gem 'sandi_meter'
 end
 
 gem 'rubocop', require: false

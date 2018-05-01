@@ -18,10 +18,12 @@ configure do
     config_file './config/development.yml'
   elsif production?
     config_file './config/production.yml'
+  elsif test?
+    config_file './config/test.yml'
   end
 
-  URL_SHORTENER = UrlShortener.new(settings.base_url)
   REDIS = Redis.new(url: settings.redis_url)
+  URL_SHORTENER = UrlShortener.new(settings.base_url, REDIS)
 end
 
 get '/' do
@@ -29,7 +31,6 @@ get '/' do
 end
 
 get '/*' do
-  # lookup the params and redirect
   key = params['splat'].join
   url = REDIS.get(key)
   redirect url
