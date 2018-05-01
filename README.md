@@ -11,7 +11,6 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 ## TODO
 
 
-7. Shotgun
 8. Guard
 
 11. thin?
