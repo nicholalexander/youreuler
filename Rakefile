@@ -7,6 +7,7 @@ begin
   RSpec::Core::RakeTask.new(:spec)
   RuboCop::RakeTask.new
 rescue LoadError
+  puts 'error swallowed to prevent heroku being mad'
 end
 
 task default: %w[hello spec rubocop]
