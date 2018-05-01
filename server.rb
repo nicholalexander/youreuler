@@ -3,12 +3,20 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
-require 'pry'
+
+require 'sinatra/reloader' if development?
+require 'pry' if development?
 
 require './lib/url_shortener'
 
 configure do
-  url_shortener = UrlShortener.new(:redis)
+  set :environment, :production
+  if development?
+    set :base_url, 'http://localhost:4567/'
+  else
+    set :base_url, 'http://youreul.com/'
+  end
+  url_shortener = UrlShortener.new(:redis, settings.base_url)
   set :url_shortener, url_shortener
 end
 
