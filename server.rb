@@ -17,7 +17,11 @@ configure do
     set :base_url, 'http://youreul.com/'
   end
   URL_SHORTENER = UrlShortener.new(:redis, settings.base_url)
-  REDIS = Redis.new(url: 'redis://127.0.0.1:6379/0')
+  if development?
+    REDIS = Redis.new(url: 'redis://127.0.0.1:6379/0')
+  else
+    REDIS = Redis.new(url: 'redis://h:p6bb6ad8c3b93dd220d0d707238dbaf2aab369e5bdab8f0c32d48449ead19b50d@ec2-35-171-63-64.compute-1.amazonaws.com:42449')
+  end
 end
 
 get '/' do
