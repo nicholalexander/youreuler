@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
+require 'sinatra/config_file'
 require 'redis'
 
 require 'sinatra/reloader' if development?
@@ -11,17 +12,15 @@ require 'pry' if development?
 require './lib/url_shortener'
 
 configure do
+  set :environment, :production
   if development?
-    set :base_url, 'http://localhost:4567/'
-  else
-    set :base_url, 'http://youreuler.com/'
+    config_file './config/development.yml'
+  elsif production?
+    config_file './config/production.yml'
   end
+
   URL_SHORTENER = UrlShortener.new(:redis, settings.base_url)
-  if development?
-    REDIS = Redis.new(url: 'redis://127.0.0.1:6379/0')
-  else
-    REDIS = Redis.new(url: 'redis://h:p6bb6ad8c3b93dd220d0d707238dbaf2aab369e5bdab8f0c32d48449ead19b50d@ec2-35-171-63-64.compute-1.amazonaws.com:42449')
-  end
+  REDIS = Redis.new(url: settings.redis_url)
 end
 
 get '/' do
