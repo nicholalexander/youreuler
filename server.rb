@@ -26,7 +26,7 @@ end
 
 get '/*' do
   # lookup the params and redirect
-  key = params["splat"].join
+  key = params['splat'].join
   url = REDIS.get(key)
   redirect url
 end
