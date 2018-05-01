@@ -17,6 +17,7 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 10. URL shortener
 11. thin
 12. use settings file for messages, etc - http://sinatrarb.com/contrib/config_file
+13. rake file to start redis
 
 
 ## Requirements

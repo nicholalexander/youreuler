@@ -16,11 +16,12 @@ class UrlShortener
     original_url = payload['original_url']
     slug = payload['slug']
     short_url = generate_short_url(slug)
+    short_code = URI.parse(short_url).path[1..-1]
 
-    # store_client.write response
     {
       original_url: original_url,
       short_url: short_url,
+      short_code: short_code,
       slug: slug
     }
   end
