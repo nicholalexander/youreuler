@@ -10,7 +10,6 @@ require 'pry' if development?
 require './lib/url_shortener'
 
 configure do
-  set :environment, :production
   if development?
     set :base_url, 'http://localhost:4567/'
   else
