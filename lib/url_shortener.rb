@@ -17,10 +17,10 @@ class UrlShortener
 
   def shorten(payload)
     original_url = payload['original_url']
-  
+
     short_code = generate_unique_short_code(payload['slug'])
     short_url = build_url(short_code)
-  
+
     write_to_redis(short_code, original_url)
     build_response(original_url, short_url, short_code)
   end
@@ -42,18 +42,12 @@ class UrlShortener
   def generate_unique_short_code(slug)
     begin
       retries ||= 0
-      if slug
-        key = format_slug(slug) + generate_short_code
-      else
-        key = generate_short_code
-      end
+      key = slug ? format_slug(slug) + generate_short_code : generate_short_code
       raise 'Key Exists' if @redis.exists(key)
-    rescue Exception => error
-      if error.message == 'Key Exists'
-        retry if (retries += 1) < 5
-        raise 'Redis Keyspace Is Too Crowded!'
-      else raise error
-      end
+    rescue StandardError => error
+      raise error if error.message != 'Key Exists'
+      retry if (retries += 1) < 5
+      raise 'Redis Keyspace Is Too Crowded!'
     end
 
     key

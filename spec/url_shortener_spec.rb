@@ -109,7 +109,7 @@ describe 'UrlShortener' do
     end
 
     it 'should raise an error with a message about the keyspace' do
-      expect{@url_shortener.shorten(@payload)}.to raise_error(RuntimeError, %r{Keyspace})
+      expect { @url_shortener.shorten(@payload) }.to raise_error(RuntimeError, /Keyspace/)
     end
   end
 end
