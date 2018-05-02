@@ -13,6 +13,8 @@ group :test, :development do
   gem 'rack-test'
   gem 'rspec'
   gem 'sandi_meter'
+  gem 'mock_redis'
 end
 
 gem 'rubocop', require: false
+gem 'simplecov', require: false, group: :test

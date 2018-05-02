@@ -44,7 +44,6 @@ namespace '/api' do
   post '/shorten' do
     request_payload = JSON.parse(request.body.read)
     response = URL_SHORTENER.shorten(request_payload)
-    REDIS.set(response[:short_code], response[:original_url])
     json response
   end
 end

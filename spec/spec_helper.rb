@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start
+
 # Setup for Sinatra
 require 'rack/test'
 ENV['RACK_ENV'] = 'test'
