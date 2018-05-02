@@ -41,13 +41,16 @@ describe 'UrlShortener' do
   end
 
   describe '#shorten' do
+    before do
+      @redis_instance = spy(MockRedis.new)
+      allow(@redis_instance).to receive(:exists).and_return(false)
+      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+    end
+
     context 'without a slug' do
       before do
-        @redis_instance = spy(MockRedis.new)
-        allow(@redis_instance).to receive(:exists).and_return(false)
-        url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
         payload = { 'original_url' => 'http://google.com/' }
-        @response = url_shortener.shorten(payload)
+        @response = @url_shortener.shorten(payload)
       end
 
       it 'should return a response with the original_url' do
@@ -73,12 +76,6 @@ describe 'UrlShortener' do
     end
 
     context 'when a slug is provided' do
-      before do
-        @redis_instance = spy(MockRedis.new)
-        allow(@redis_instance).to receive(:exists).and_return(false)
-        @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
-      end
-
       it 'should include the slug in the shortened url' do
         payload = {
           'original_url' => 'http://google.com/',
@@ -98,18 +95,13 @@ describe 'UrlShortener' do
         expect(@response[:short_url]).to match(%r{base_url\/blurgh\/})
       end
     end
-  end
 
-  context 'when the redis keyspace is full' do
-    before do
-      @redis_instance = spy(MockRedis.new)
-      allow(@redis_instance).to receive(:exists).and_return(true)
-      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
-      @payload = { 'original_url' => 'http://google.com/' }
-    end
-
-    it 'should raise an error with a message about the keyspace' do
-      expect { @url_shortener.shorten(@payload) }.to raise_error(RuntimeError, /Keyspace/)
+    context 'when the redis keyspace is full' do
+      it 'should raise an error with a message about the keyspace' do
+        allow(@redis_instance).to receive(:exists).and_return(true)
+        payload = { 'original_url' => 'http://google.com/' }
+        expect { @url_shortener.shorten(payload) }.to raise_error(RuntimeError, /Keyspace/)
+      end
     end
   end
 end
