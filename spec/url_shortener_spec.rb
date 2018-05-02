@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require 'url_shortener'
 require 'mock_redis'
 
@@ -36,7 +35,8 @@ describe 'UrlShortener' do
     end
 
     it 'should have a redis_client' do
-      expect(@url_shortener.instance_variable_get(:@redis)).to eq('redis_client')
+      expect(@url_shortener.instance_variable_get(:@redis))
+        .to eq('redis_client')
     end
   end
 
@@ -66,12 +66,15 @@ describe 'UrlShortener' do
         expect(url.is_a?(URI::HTTP)).to be true
       end
 
-      it 'should return a short code that has characters from the character_space' do
-        expect(@response[:short_code].split('').all? { |x| UrlShortener::CHARACTER_SPACE.include?(x) }).to be true
+      it 'should return a short code built from the character_space' do
+        expect(@response[:short_code].split('').all? do |x|
+          UrlShortener::CHARACTER_SPACE.include?(x)
+        end).to be true
       end
 
       it 'should persist in redis' do
-        expect(@redis_instance).to have_received(:set).with(anything, %r{http:\/\/google.com})
+        expect(@redis_instance).to have_received(:set)
+          .with(anything, %r{http:\/\/google.com})
       end
     end
 
@@ -100,7 +103,8 @@ describe 'UrlShortener' do
       it 'should raise an error with a message about the keyspace' do
         allow(@redis_instance).to receive(:exists).and_return(true)
         payload = { 'original_url' => 'http://google.com/' }
-        expect { @url_shortener.shorten(payload) }.to raise_error(RuntimeError, /Keyspace/)
+        expect { @url_shortener.shorten(payload) }
+          .to raise_error(RuntimeError, /Keyspace/)
       end
     end
   end
