@@ -9,11 +9,11 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 
 group :test, :development do
+  gem 'mock_redis'
   gem 'pry'
   gem 'rack-test'
   gem 'rspec'
   gem 'sandi_meter'
-  gem 'mock_redis'
 end
 
 gem 'rubocop', require: false

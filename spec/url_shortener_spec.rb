@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'pry'
 require 'url_shortener'
 require 'mock_redis'
@@ -40,41 +41,60 @@ describe 'UrlShortener' do
   end
 
   describe '#shorten' do
-    before do
-      @redis_instance = spy(MockRedis.new)
-      url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
-      payload = { 'original_url' => 'http://google.com/' }
-      @response = url_shortener.shorten(payload)
+    context 'without a slug' do
+      before do
+        @redis_instance = spy(MockRedis.new)
+        url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+        payload = { 'original_url' => 'http://google.com/' }
+        @response = url_shortener.shorten(payload)
+      end
+
+      it 'should return a response with the original_url' do
+        expect(@response[:original_url]).to eq('http://google.com/')
+      end
+
+      it 'should return a response with the shortened url' do
+        expect(@response[:short_url].length).to be > 5
+      end
+
+      it 'should return a valid http url for the shortened url' do
+        url = URI.parse(@response[:short_url])
+        expect(url.is_a?(URI::HTTP)).to be true
+      end
+
+      it 'should return a short code that has characters from the character_space' do
+        expect(@response[:short_code].split('').all? { |x| UrlShortener::CHARACTER_SPACE.include?(x) }).to be true
+      end
+
+      it 'should persist in redis' do
+        expect(@redis_instance).to have_received(:set).with(anything, %r{http:\/\/google.com})
+      end
     end
 
-    it 'should return a response with the original_url' do
-      expect(@response[:original_url]).to eq('http://google.com/')
-    end
-
-    it 'should return a response with the shortened url' do
-      expect(@response[:short_url].length).to be > 5
-    end
-
-    it 'should return a valid http url for the shortened url' do
-      url = URI.parse(@response[:short_url])
-      expect(url.is_a?(URI::HTTP)).to be true
-    end
-
-    it 'should return a short code that has characters from the character_space' do
-      expect(@response[:short_code].split('').all? { |x| UrlShortener::CHARACTER_SPACE.include?(x)}).to be true
-    end
-
-    it 'should persist in redis' do
-      expect(@redis_instance).to have_received(:set).with(anything, /http:\/\/google.com/)
-    end
-  
     context 'when a slug is provided' do
-      it 'should include the slug in the shortened url'
+      before do
+        @redis_instance = spy(MockRedis.new)
+        @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+      end
 
+      it 'should include the slug in the shortened url' do
+        payload = {
+          'original_url' => 'http://google.com/',
+          'slug' => '/blurgh'
+        }
+        @response = @url_shortener.shorten(payload)
+
+        expect(@response[:short_code].include?('blurgh')).to be true
+      end
+
+      it 'should handle slashes at the beginning and end of the slug' do
+        payload = {
+          'original_url' => 'http://google.com/',
+          'slug' => '/blurgh/'
+        }
+        @response = @url_shortener.shorten(payload)
+        expect(@response[:short_url]).to match(%r{base_url\/blurgh\/})
+      end
     end
   end
-
-  
-  
-
 end
