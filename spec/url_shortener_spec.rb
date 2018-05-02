@@ -44,6 +44,7 @@ describe 'UrlShortener' do
     context 'without a slug' do
       before do
         @redis_instance = spy(MockRedis.new)
+        allow(@redis_instance).to receive(:exists).and_return(false)
         url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
         payload = { 'original_url' => 'http://google.com/' }
         @response = url_shortener.shorten(payload)
@@ -74,6 +75,7 @@ describe 'UrlShortener' do
     context 'when a slug is provided' do
       before do
         @redis_instance = spy(MockRedis.new)
+        allow(@redis_instance).to receive(:exists).and_return(false)
         @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
       end
 
@@ -95,6 +97,19 @@ describe 'UrlShortener' do
         @response = @url_shortener.shorten(payload)
         expect(@response[:short_url]).to match(%r{base_url\/blurgh\/})
       end
+    end
+  end
+
+  context 'when the redis keyspace is full' do
+    before do
+      @redis_instance = spy(MockRedis.new)
+      allow(@redis_instance).to receive(:exists).and_return(true)
+      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+      @payload = { 'original_url' => 'http://google.com/' }
+    end
+
+    it 'should raise an error with a message about the keyspace' do
+      expect{@url_shortener.shorten(@payload)}.to raise_error(RuntimeError, %r{Keyspace})
     end
   end
 end

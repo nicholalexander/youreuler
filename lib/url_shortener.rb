@@ -16,31 +16,59 @@ class UrlShortener
   end
 
   def shorten(payload)
-    short_url = generate_short_url(payload['slug'])
-    short_code = URI.parse(short_url).path[1..-1]
-    @redis.set(short_code, payload['original_url'])
+    original_url = payload['original_url']
+  
+    short_code = generate_unique_short_code(payload['slug'])
+    short_url = build_url(short_code)
+  
+    write_to_redis(short_code, original_url)
+    build_response(original_url, short_url, short_code)
+  end
 
+  private
+
+  def build_response(original_url, short_url, short_code)
     {
-      original_url: payload['original_url'],
+      original_url: original_url,
       short_url: short_url,
       short_code: short_code
     }
   end
 
-  private
-
-  def generate_short_url(slug)
-    short_url = @base_url
-    short_url += format_slug(slug) if slug
-    short_url + generate_code
+  def write_to_redis(short_code, original_url)
+    @redis.set(short_code, original_url)
   end
 
-  def generate_code
-    (0..5).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
+  def generate_unique_short_code(slug)
+    begin
+      retries ||= 0
+      if slug
+        key = format_slug(slug) + generate_short_code
+      else
+        key = generate_short_code
+      end
+      raise 'Key Exists' if @redis.exists(key)
+    rescue Exception => error
+      if error.message == 'Key Exists'
+        retry if (retries += 1) < 5
+        raise 'Redis Keyspace Is Too Crowded!'
+      else raise error
+      end
+    end
+
+    key
   end
 
   def format_slug(slug)
     slug = slug.delete('/')
     "#{slug}/"
+  end
+
+  def generate_short_code
+    (0..5).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
+  end
+
+  def build_url(short_code)
+    @base_url + short_code
   end
 end
