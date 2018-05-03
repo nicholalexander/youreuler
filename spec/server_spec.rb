@@ -42,7 +42,20 @@ describe 'the server' do
 
     describe '/*' do
       context 'when a key is found' do
-        it 'should redirect to a url'
+        before do
+          @original_url_shortener = URL_SHORTENER
+          stub_const('URL_SHORTENER', double(URL_SHORTENER))
+        end
+
+        it 'should redirect to a url' do
+          allow(URL_SHORTENER).to receive(:resolve)
+            .and_return('http://google.com')
+
+          get '/some_valid_short_code'
+
+          expect(last_response.status).to eq(302)
+          expect(last_response.header['Location']).to eq('http://google.com')
+        end
       end
 
       context 'when no key is found' do
@@ -52,6 +65,5 @@ describe 'the server' do
         end
       end
     end
-
   end
 end
