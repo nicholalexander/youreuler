@@ -10,16 +10,10 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-
 8. Guard
-
-11. thin?
-
-13. rake file to start redis
-14. view folder for base
-15. validations & tests
 16. parse url for url requests
 17. the short code can conflict with an existing one!
+18. no api slugs and what else?
 
 ## Requirements
 

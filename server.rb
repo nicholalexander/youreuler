@@ -30,15 +30,20 @@ get '/' do
   send_file 'views/index.html'
 end
 
-get '/*' do
-  key = params['splat'].join
-  url = REDIS.get(key)
-  redirect url
-end
-
 namespace '/api' do
-  get '/', provides: 'json' do
-    json(instructions: 'do this')
+  get '/' do
+    json(
+      {
+        sample_POST_request: {
+          original_url: 'http://whatever.com/whatchamacallit'
+        },
+
+        sample_response: {
+          original_url: 'http://whatever.com/whatchamacallit',
+          short_url: 'http://youreuler.com/a3fD2'
+        }
+
+    })
   end
 
   post '/shorten' do
@@ -46,4 +51,10 @@ namespace '/api' do
     response = URL_SHORTENER.shorten(request_payload)
     json response
   end
+end
+
+get '/*' do
+  key = params['splat'].join
+  url = REDIS.get(key)
+  redirect url
 end
