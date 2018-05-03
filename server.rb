@@ -20,8 +20,8 @@ configure do
     config_file './config/production.yml'
   end
 
-  REDIS = Redis.new(url: settings.redis_url)
-  URL_SHORTENER = UrlShortener.new(settings.base_url, REDIS)
+  redis = Redis.new(url: settings.redis_url)
+  URL_SHORTENER = UrlShortener.new(settings.base_url, redis)
 end
 
 get '/' do
@@ -48,6 +48,7 @@ end
 
 get '/*' do
   key = params['splat'].join
-  url = REDIS.get(key)
-  redirect url
+  url = URL_SHORTENER.resolve(key)
+  redirect url if url
+  status 404
 end

@@ -109,4 +109,16 @@ describe 'UrlShortener' do
       end
     end
   end
+
+  describe '#resolve' do
+    it 'should return a code from redis' do
+      @redis_instance = spy(MockRedis.new)
+      allow(@redis_instance).to receive(:get)
+        .and_return('http://some_full_long_url')
+      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+
+      expect(@url_shortener.resolve('valid_short_code'))
+        .to eq('http://some_full_long_url')
+    end
+  end
 end

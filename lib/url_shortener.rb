@@ -30,6 +30,10 @@ class UrlShortener
     build_response(original_url, short_url, short_code)
   end
 
+  def resolve(key)
+    @redis.get(key)
+  end
+
   private
 
   def build_response(original_url, short_url, short_code)
@@ -41,7 +45,7 @@ class UrlShortener
   end
 
   def write_to_redis(short_code, original_url)
-    response = @redis.setnx(short_code, original_url)
+    @redis.setnx(short_code, original_url)
     # raise error if response is not OK
   end
 
