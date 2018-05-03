@@ -36,8 +36,13 @@ namespace '/api' do
 
   post '/shorten' do
     request_payload = JSON.parse(request.body.read)
-    response = URL_SHORTENER.shorten(request_payload)
-    json response
+    if URL_SHORTENER.payload_valid?(request_payload)
+      response = URL_SHORTENER.shorten(request_payload)
+      json response
+    else
+      status 400
+      json(error: "It's you, not me.")
+    end
   end
 end
 

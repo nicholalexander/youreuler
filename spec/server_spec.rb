@@ -21,11 +21,21 @@ describe 'the server' do
                 'sample_response'])
     end
 
-    it 'should respond with a shortened url' do
-      body = { original_url: 'http://google.com' }.to_json
-      post '/api/shorten', body, 'CONTENT_TYPE' => 'application/json'
-      expect(JSON.parse(last_response.body).keys)
-        .to eq(%w[original_url short_url short_code])
+    context 'with a valid body type' do
+      it 'should respond with a shortened url' do
+        body = { original_url: 'http://google.com' }.to_json
+        post '/api/shorten', body, 'CONTENT_TYPE' => 'application/json'
+        expect(JSON.parse(last_response.body).keys)
+          .to eq(%w[original_url short_url short_code])
+      end
+    end
+
+    context 'with missing original_url' do
+      it 'should return a 400' do
+        body = { BAD_KEY: 'http://someurl' }.to_json
+        post '/api/shorten', body, 'CONTENT_TYPE' => 'application/json'
+        expect(last_response.status).to eq(400)
+      end
     end
   end
 end

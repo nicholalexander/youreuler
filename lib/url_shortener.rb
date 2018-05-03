@@ -15,6 +15,11 @@ class UrlShortener
     @redis = redis
   end
 
+  def payload_valid?(payload)
+    return true if payload.keys.include? 'original_url'
+    false
+  end
+
   def shorten(payload)
     original_url = payload['original_url']
 
