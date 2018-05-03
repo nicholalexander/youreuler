@@ -41,7 +41,8 @@ class UrlShortener
   end
 
   def write_to_redis(short_code, original_url)
-    @redis.set(short_code, original_url)
+    response = @redis.setnx(short_code, original_url)
+    # raise error if response is not OK
   end
 
   def generate_unique_short_code(slug)
