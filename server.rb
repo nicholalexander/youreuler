@@ -14,12 +14,10 @@ if development?
 end
 
 configure do
-  if development?
+  if development? || test?
     config_file './config/development.yml'
   elsif production?
     config_file './config/production.yml'
-  elsif test?
-    config_file './config/test.yml'
   end
 
   REDIS = Redis.new(url: settings.redis_url)
@@ -32,18 +30,8 @@ end
 
 namespace '/api' do
   get '/' do
-    json(
-      {
-        sample_POST_request: {
-          original_url: 'http://whatever.com/whatchamacallit'
-        },
-
-        sample_response: {
-          original_url: 'http://whatever.com/whatchamacallit',
-          short_url: 'http://youreuler.com/a3fD2'
-        }
-
-    })
+    content_type :json
+    send_file 'views/api_instructions.json'
   end
 
   post '/shorten' do

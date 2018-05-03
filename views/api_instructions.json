@@ -1,0 +1,10 @@
+{
+  "sample_POST_request to /api/shorten should contain json": {
+    "original_url": "http://whatever.com/whatchamacallit"
+  },
+
+  "sample_response": {
+    "original_url": "http://whatever.com/whatchamacallit",
+    "short_url": "http://youreuler.com/a3fD2"
+  }
+}

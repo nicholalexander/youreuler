@@ -1,2 +1,0 @@
-base_url: http://localhost:4567/
-redis_url: redis://127.0.0.1:6379/0
