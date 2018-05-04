@@ -12,10 +12,8 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 8. Guard
 16. parse url for url requests
-17. the short code can conflict with an existing one!
 18. no api slugs and what else?
 19. custom errors
-20. resolve in url_shortener
 21. .env file for redis and heroku env var
 22. monitoring
 23. ci & deployment

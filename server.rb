@@ -3,25 +3,21 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
-require 'sinatra/config_file'
 require 'redis'
 
 require './lib/url_shortener'
 
-if development?
+if development? || test?
+  require 'dotenv'
+  Dotenv.load
+
   require 'sinatra/reloader'
   require 'pry'
 end
 
 configure do
-  if development? || test?
-    config_file './config/development.yml'
-  elsif production?
-    config_file './config/production.yml'
-  end
-
-  redis = Redis.new(url: settings.redis_url)
-  URL_SHORTENER = UrlShortener.new(settings.base_url, redis)
+  redis = Redis.new(url: ENV['REDIS_URL'])
+  URL_SHORTENER = UrlShortener.new(ENV['BASE_URL'], redis)
 end
 
 get '/' do
