@@ -10,13 +10,21 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ## TODO
 
-8. Guard
-16. parse url for url requests
-18. no api slugs and what else?
-19. custom errors
-21. .env file for redis and heroku env var
-22. monitoring
-23. ci & deployment
+1. custom errors
+2. parse url for url requests
+3. no api slugs and what else?
+
+## Yaks
+1. Guard
+2. monitoring
+3. ci & deployment
+4. ssl problem?
+5. 404
+6. rake run leaves zombie process
+7. controllers
+
+## Actual Ideas
+1. Register callback actions on link shortening.
 
 ## Requirements
 
