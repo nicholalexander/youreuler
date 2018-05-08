@@ -22,8 +22,8 @@ end
 
 handle_api_request_from_params = lambda do
   request_payload = params.select do |key, _value|
-      key == 'original_url' || key == 'slug'
-    end
+    key == 'original_url' || key == 'slug'
+  end
   process_payload(request_payload)
 end
 
