@@ -33,7 +33,6 @@ end
 
 namespace '/api' do
   get '/' do
-    content_type :json
     send_file 'views/api_instructions.json'
   end
 
