@@ -38,6 +38,14 @@ describe 'the server' do
           expect(last_response.status).to eq(400)
         end
       end
+
+      context 'when the arguments are in the parameters' do
+        it 'should return a good response' do
+          post '/api/shorten/?original_url=http://google.com&slug=/blurgh/'
+          expect(JSON.parse(last_response.body).keys)
+            .to eq(%w[original_url short_url short_code])
+        end
+      end
     end
 
     describe '/*' do
