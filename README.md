@@ -4,14 +4,29 @@ A cutting edge state of the art URL shortener.  (And Elongator?)
 
 ## A Note On the Naming
 
-A guy I met once pronounced URLs as "you're ul".  But with no real empty space between the two words.  And That was different.  It is only a happy accident that the name I picked also says Your Euler.  Which I wish I an Euler.
+A guy I met once pronounced URLs as "you're ul".  But with no real empty space between the two words.  And that was different.  It is only a happy accident that the name I picked also says Your Euler.  Which I wish I an Euler.
 
 ## Installation
 
+`bundle install`
+
+## Running the App
+
+`rake run`
+
+*nb, you will need a redis instance running locally.*
+
+## Running the Test Suit, Rubocop, and Test Coverage Tools
+
+`rake`
+
+## Discussion
+
+
 ## TODO
 
+2. parse url for api requests
 1. custom errors
-2. parse url for url requests
 3. no api slugs and what else?
 
 ## Yaks
@@ -23,7 +38,7 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 6. rake run leaves zombie process
 7. controllers
 
-## Actual Ideas
+## More fun Ideas
 1. Register callback actions on link shortening.
 
 ## Requirements
@@ -36,16 +51,7 @@ As part of this HTTP request, the client may specify an optional "slug" string t
 
 The response body should include some representation of the shortened URLalong with the original URL to which it will redirect.
 
-### Project Requirements
 
-The project should include an automated test suite.
-
-The project should include a README file with instructions for running the web service and its tests. You should also use the README to provide context on choices made during development.
-
-The project should be packaged as a compressed archive (e.g. a zip file).
-
-Questions
-1. do we not actually handle the redirection or a getting of the link?
 
 ## Topics for Discussion
 1. scaffolding
@@ -56,22 +62,3 @@ Questions
 6. postman bundle?
 
 ## Notes
-
-request:
-{
-  url:
-  slug:
-}
-
-response:
-{
-  url:
-  short_url:
-}
-
-routes:
-GET / - api index
-POST /shorten - create a link and return a response
-GET /[slug]/pattern - resolve and redirect
-
-https://github.com/Netflix/fast_jsonapi
