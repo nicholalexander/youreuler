@@ -24,13 +24,6 @@ get '/' do
   send_file 'views/index.html'
 end
 
-get '/*' do
-  key = params['splat'].join
-  url = URL_SHORTENER.resolve(key)
-  redirect url if url
-  status 404
-end
-
 namespace '/api' do
   get '/' do
     content_type :json
@@ -49,6 +42,13 @@ namespace '/api' do
   end
 end
 
+get '/*' do
+  key = params['splat'].join
+  url = URL_SHORTENER.resolve(key)
+  redirect url if url
+  status 404
+end
+
 not_found do
-  send_file 'views/404.html'
+  send_file 'views/404.html', status: 404
 end
