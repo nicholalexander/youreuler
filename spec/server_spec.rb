@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 describe 'the server' do
   it 'should allow access to the home page' do
     get '/'
