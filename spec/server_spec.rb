@@ -17,7 +17,7 @@ describe 'the server' do
     it 'should have a sample response on the api namespace' do
       get '/api/'
       expect(JSON.parse(last_response.body).keys)
-        .to eq(['sample_POST_request to /api/shorten should contain json',
+        .to eq(['sample POST request to /api/shorten should contain json body',
                 'sample_response'])
     end
 

@@ -1,5 +1,5 @@
 {
-  "sample_POST_request to /api/shorten should contain json": {
+  "sample POST request to /api/shorten should contain json body": {
     "original_url": "http://whatever.com/whatchamacallit"
   },
 
