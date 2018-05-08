@@ -7,32 +7,58 @@
   <title>Youreuler</title>
   <meta name="description" content="Shortenify Urls!">
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <style>
+    body {
+      background-color: #eee;
+      padding: 60px;
+      font-family: 'sans-serif';
+    }
+
+    h1 {
+      font-size: 5em;
+    }
+
+    .content {
+      width: 60%;
+    }
+  </style>
 </head>
 
 <body>
-  <h1> Youreuler </h1>
+  <div class='content'>
+    <h1> youreuler </h1>
 
-  <p> Thanks for checking Youreuler out.  Do you have a URL?  Is it too long?  We have an api for that!  Check it! </p>
+    <p> Do you have a URL?  Is it too long?  We have an api for that!  Check it! </p>
 
-  <p> Send a <code> POST </code> request to <code> /api/shorten </code> with the following body:
+    <p> Send a <code> POST </code> request to <code> /api/shorten </code> with the following body:
 
-  <pre>
-    {
-      "original_url": "http://google.com/"
-    }
-  </pre>
+    <pre>
+      {
+        "original_url": "http://google.com/"
+      }
+    </pre>
 
-  And we'll send you back something like this:
+    And we'll send you back something like this:
 
-  <pre>
-    {
-      "original_url": "http://google.com/",
-      "short_url": "http://youreuler.com/Itn0aD",
-      "short_code": "Itn0aD",
-      "slug": null
-    }
-  </pre>
+    <pre>
+      {
+        "original_url": "http://google.com/",
+        "short_url": "http://www.youreuler.com/Itn0aD",
+        "short_code": "Itn0aD"
+      }
+    </pre>
 
-  <p> That's all I got. </p>
+    <p> So you're one of those cgi, php sorts that likes to send parameters in the url?  Fine.  Post it to:
+
+    <pre> 
+      /api/shorten/?original_url=http://google.com/&slug='blonk'
+    </pre> 
+
+    and see if you don't get something nice back.  And while we're at it, you can just GET it so you get something nice in the browser.</p>
+
+    <p>Why, yes, you are very welcome.</p>
+
+    <p> A brief note on the naming.  I met a man once who pronounced URL's not as it was meant to be pronounced, YOU-ARE-ELL, but rather as a word, thusly: YOU'RE UL.  But as one word.  Youreul.  Thusly so we are named, in honor of that great and brave soul who flaunted his individuality in the face of both tradition and social expectations.  We celebrate you, dear sir.</p>
+  </div>
 </body>
 </html>
