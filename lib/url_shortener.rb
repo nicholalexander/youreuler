@@ -10,6 +10,10 @@ class UrlShortener
 
   CHARACTER_SPACE_SIZE = CHARACTER_SPACE.size
 
+  CODE_LENGTH = 5
+
+  REDIS_RETRIES = 5
+
   def initialize(base_url, redis)
     @base_url = base_url
     @redis = redis
@@ -56,7 +60,7 @@ class UrlShortener
       raise 'Key Exists' if @redis.exists(key)
     rescue StandardError => error
       raise error if error.message != 'Key Exists'
-      retry if (retries += 1) < 5
+      retry if (retries += 1) < REDIS_RETRIES
       raise 'Redis Keyspace Is Too Crowded!'
     end
 
@@ -69,7 +73,7 @@ class UrlShortener
   end
 
   def generate_short_code
-    (0..5).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
+    (0..CODE_LENGTH).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
   end
 
   def build_url(short_code)

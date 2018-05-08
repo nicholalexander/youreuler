@@ -25,6 +25,14 @@ describe 'UrlShortener' do
     expect(size).to equal(62)
   end
 
+  it 'should have a CODE_LENGTH initialized to 5' do
+    expect(UrlShortener::CODE_LENGTH).to eq(5)
+  end
+
+  it 'should have a REDIS_RETRIES initialized to 5' do
+    expect(UrlShortener::REDIS_RETRIES).to eq(5)
+  end
+
   context 'when it is intitialized' do
     before do
       @url_shortener = UrlShortener.new('base_url', 'redis_client')
