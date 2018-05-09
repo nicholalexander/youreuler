@@ -47,9 +47,12 @@ end
 
 get '/*' do
   key = params['splat'].join
-  url = URL_SHORTENER.resolve(key)
-  redirect url if url
-  status 404
+  begin
+    url = URL_SHORTENER.resolve(key)
+    redirect url if url
+  rescue UrlShortener::ResolveKeyError => e
+    status e.status_code
+  end
 end
 
 not_found do

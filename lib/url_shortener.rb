@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './url_shortener/resolve_key_error'
+
 # UrlShortener is responsible for shortening urls and writing them to
 # the redis store.  It is also able to resolve short links to their
 # full url.
@@ -35,7 +37,9 @@ class UrlShortener
   end
 
   def resolve(key)
-    @redis.get(key)
+    key = @redis.get(key)
+    raise UrlShortener::ResolveKeyError unless key
+    key
   end
 
   private
