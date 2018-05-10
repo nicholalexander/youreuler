@@ -41,6 +41,11 @@ namespace '/api' do
     process_payload(request_payload)
   end
 
+  post '/enlengthen' do
+    request_payload = JSON.parse(request.body.read)
+    process_payload(request_payload, :enlengthen)
+  end
+
   post '/shorten/*', &handle_api_request_from_params
   get '/shorten/*', &handle_api_request_from_params
 end
@@ -60,9 +65,15 @@ not_found do
 end
 
 helpers do
-  def process_payload(request_payload)
+  def process_payload(request_payload, mode = :shorten)
     URL_SHORTENER.validate_payload(request_payload)
-    json URL_SHORTENER.shorten(request_payload)
+    if mode == :shorten
+      response = URL_SHORTENER.shorten(request_payload)
+    elsif mode == :enlengthen
+      response = URL_SHORTENER.enlengthen(request_payload)
+    end
+
+    json response
   rescue UrlShortener::Error => e
     status e.status_code
     json e.to_json

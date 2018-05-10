@@ -17,6 +17,7 @@ class UrlShortener
   CHARACTER_SPACE_SIZE = CHARACTER_SPACE.size
 
   CODE_LENGTH = 5
+  LONG_CODE_LENGTH = 128
 
   REDIS_RETRIES = 5
 
@@ -29,6 +30,15 @@ class UrlShortener
     UrlShortener::PayloadValidator.call(payload)
     true
   end
+
+  def enlengthen(payload)
+    original_url = payload['original_url']
+    long_code = generate_unique_long_code(payload['slug'])
+    long_url = build_url(long_code)
+    write_to_redis(long_code, original_url)
+    build_response(original_url, long_url, long_code)
+  end
+
 
   def shorten(payload)
     original_url = payload['original_url']
@@ -75,6 +85,20 @@ class UrlShortener
     key
   end
 
+  def generate_unique_long_code(slug)
+    begin
+      retries ||= 0
+      key = slug ? format_slug(slug) + generate_long_code : generate_long_code
+      raise 'Key Exists' if @redis.exists(key)
+    rescue StandardError => error
+      raise error if error.message != 'Key Exists'
+      retry if (retries += 1) < REDIS_RETRIES
+      raise 'Redis Keyspace Is Too Crowded!'
+    end
+
+    key
+  end
+
   def format_slug(slug)
     slug = slug.delete('/')
     "#{slug}/"
@@ -82,6 +106,10 @@ class UrlShortener
 
   def generate_short_code
     (0..CODE_LENGTH).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
+  end
+
+  def generate_long_code
+    (0..LONG_CODE_LENGTH).map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
   end
 
   def build_url(short_code)
