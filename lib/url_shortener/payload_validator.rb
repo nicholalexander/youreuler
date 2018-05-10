@@ -17,7 +17,7 @@ class UrlShortener
       end
 
       def check_slug(slug)
-        raise UrlShortener::Error::InvalidSlug if slug.match?(/api/)
+        raise UrlShortener::Error::InvalidSlug if slug =~ /api/
       end
     end
   end

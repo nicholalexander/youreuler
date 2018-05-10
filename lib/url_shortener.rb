@@ -4,6 +4,7 @@ require_relative './url_shortener/payload_validator'
 require_relative './url_shortener/error'
 require_relative './url_shortener/error/resolve_key'
 require_relative './url_shortener/error/invalid_payload'
+require_relative './url_shortener/error/invalid_slug'
 
 # UrlShortener is responsible for shortening urls and writing them to
 # the redis store.  It is also able to resolve short links to their
