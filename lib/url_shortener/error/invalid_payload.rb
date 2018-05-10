@@ -5,8 +5,8 @@ class UrlShortener
     # Error when key does not exist in redis
     class InvalidPayload < UrlShortener::Error
       def initialize
-        @status_code = 400
         super
+        @status_code = 400
       end
 
       def message

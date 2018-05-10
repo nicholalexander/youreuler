@@ -61,12 +61,10 @@ end
 
 helpers do
   def process_payload(request_payload)
-    begin
-      URL_SHORTENER.validate_payload(request_payload)
-      json URL_SHORTENER.shorten(request_payload)
-    rescue UrlShortener::Error => e
-      status e.status_code
-      json e.to_json
-    end
+    URL_SHORTENER.validate_payload(request_payload)
+    json URL_SHORTENER.shorten(request_payload)
+  rescue UrlShortener::Error => e
+    status e.status_code
+    json e.to_json
   end
 end

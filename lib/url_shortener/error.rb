@@ -7,6 +7,11 @@ class UrlShortener
 
     def initialize
       super
+      @status_code = 500
+    end
+
+    def message
+      'This is a very serious error - contact customer support immediately.'
     end
 
     def to_json
