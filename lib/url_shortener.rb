@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require_relative './url_shortener/resolve_key_error'
+require_relative './url_shortener/payload_validator'
+require_relative './url_shortener/error'
+require_relative './url_shortener/error/resolve_key'
+require_relative './url_shortener/error/invalid_payload'
 
 # UrlShortener is responsible for shortening urls and writing them to
 # the redis store.  It is also able to resolve short links to their
@@ -21,9 +24,9 @@ class UrlShortener
     @redis = redis
   end
 
-  def payload_valid?(payload)
-    return true if payload.keys.include? 'original_url'
-    false
+  def validate_payload(payload)
+    UrlShortener::PayloadValidator.call(payload)
+    true
   end
 
   def shorten(payload)
@@ -38,7 +41,7 @@ class UrlShortener
 
   def resolve(key)
     key = @redis.get(key)
-    raise UrlShortener::ResolveKeyError unless key
+    raise UrlShortener::Error::ResolveKey unless key
     key
   end
 

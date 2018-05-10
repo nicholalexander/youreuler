@@ -50,7 +50,7 @@ get '/*' do
   begin
     url = URL_SHORTENER.resolve(key)
     redirect url if url
-  rescue UrlShortener::ResolveKeyError => e
+  rescue UrlShortener::Error::ResolveKey => e
     status e.status_code
   end
 end
@@ -61,12 +61,12 @@ end
 
 helpers do
   def process_payload(request_payload)
-    if URL_SHORTENER.payload_valid?(request_payload)
-      response = URL_SHORTENER.shorten(request_payload)
-      json response
-    else
-      status 400
-      json(error: "It's you, not me.")
+    begin
+      URL_SHORTENER.validate_payload(request_payload)
+      json URL_SHORTENER.shorten(request_payload)
+    rescue UrlShortener::Error => e
+      status e.status_code
+      json e.to_json
     end
   end
 end
