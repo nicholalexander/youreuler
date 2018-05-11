@@ -33,7 +33,8 @@ end
 
 get '/' do
   send_file 'views/index.html'
-  logger.info 'INDEX PAGE'
+  logger.error 'INDEX PAGE'
+  puts "HELLO!"
 end
 
 get '/loaderio-956ae1ea465e5c4992b272052969f6a3/' do
