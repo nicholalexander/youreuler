@@ -20,10 +20,7 @@ configure do
   redis = Redis.new(url: ENV['REDIS_URL'])
   URL_TRANSFORMER = UrlTransformer.new(ENV['BASE_URL'], redis)
 
-    LOG = Logger.new(STDOUT)
-    LOG.level = Logger.const_get ENV['LOG_LEVEL'] || 'DEBUG'
-  
-    LOG.info 'I am logging something.'
+  set :logger, Logger.new(STDOUT)
 end
 
 handle_api_request_from_params = lambda do
@@ -35,7 +32,7 @@ end
 
 get '/' do
   send_file 'views/index.html'
-  LOG.info 'INDEX PAGE'
+  logger.info 'INDEX PAGE'
 end
 
 get '/loaderio-956ae1ea465e5c4992b272052969f6a3/' do
