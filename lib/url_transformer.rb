@@ -30,20 +30,14 @@ class UrlTransformer
     UrlTransformer::Shortener.new(@base_url, @redis).transform(payload)
   end
 
-  # def enlengthen(payload)
-  #   original_url = payload['original_url']
-
-  #   long_code = generate_unique_long_code(payload['slug'])
-  #   long_url = build_url(long_code)
-
-  #   write_to_redis(long_code, original_url)
-  #   build_response(original_url, long_url, long_code)
-  # end
+  def enlengthen(payload)
+    UrlTransformer::Enlengthener.new(@base_url, @redis).transform(payload)
+  end
 
   def resolve(key)
-    key = @redis.get(key)
-    raise UrlTransformer::Error::ResolveKey unless key
-    key
+    redirect_link = @redis.get(key)
+    raise UrlTransformer::Error::ResolveKey unless redirect_link
+    redirect_link
   end
 
   private
