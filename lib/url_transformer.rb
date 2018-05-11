@@ -6,6 +6,7 @@ require_relative './url_transformer/error/invalid_payload'
 require_relative './url_transformer/error/invalid_slug'
 require_relative './url_transformer/payload_validator'
 require_relative './url_transformer/shortener'
+require_relative './url_transformer/enlengthener'
 
 # UrlTransformer is responsible for shortening urls and writing them to
 # the redis store.  It is also able to resolve short links to their
@@ -64,11 +65,6 @@ class UrlTransformer
   def format_slug(slug)
     slug = slug.delete('/')
     "#{slug}/"
-  end
-
-  def generate_long_code
-    (0..LONG_CODE_LENGTH)
-      .map { CHARACTER_SPACE[rand(CHARACTER_SPACE_SIZE)] }.join
   end
 
   def build_url(short_code)

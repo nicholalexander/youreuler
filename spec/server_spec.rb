@@ -46,6 +46,17 @@ describe 'the server' do
       end
     end
 
+    describe '/api/enlengthen' do
+      context 'with a valid body type' do
+        it 'should respond with a long url' do
+          body = { original_url: 'http://google.com' }.to_json
+          post '/api/enlengthen', body, 'CONTENT_TYPE' => 'application/json'
+          expect(JSON.parse(last_response.body).keys)
+            .to eq(%w[original_url long_url long_code])
+        end
+      end
+    end
+
     describe '/*' do
       context 'when a key is found' do
         before do
