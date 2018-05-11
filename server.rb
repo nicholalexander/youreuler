@@ -3,8 +3,9 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
-require 'redis'
+require 'sinatra/custom_logger'
 require 'logger'
+require 'redis'
 
 require './lib/url_transformer'
 
@@ -16,11 +17,11 @@ if development? || test?
   require 'pry'
 end
 
+set :logger, Logger.new(STDOUT)
+
 configure do
   redis = Redis.new(url: ENV['REDIS_URL'])
   URL_TRANSFORMER = UrlTransformer.new(ENV['BASE_URL'], redis)
-
-  set :logger, Logger.new(STDOUT)
 end
 
 handle_api_request_from_params = lambda do
