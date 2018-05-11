@@ -28,14 +28,11 @@ handle_api_request_from_params = lambda do
 end
 
 get '/' do
-  puts '999999999999999999999999999999999'
   send_file 'views/index.html'
 end
 
 namespace '/api' do
   get '/' do
-    puts '23894570230948572309857'
-    puts '23894570230948572309857'
     send_file 'views/api_instructions.json'
   end
 
