@@ -50,11 +50,11 @@ describe 'the server' do
       context 'when a key is found' do
         before do
           @original_url_transformer = URL_TRANSFORMER
-          stub_const('url_transformer', double(url_transformer))
+          stub_const('URL_TRANSFORMER', double(URL_TRANSFORMER))
         end
 
         it 'should redirect to a url' do
-          allow(url_transformer).to receive(:resolve)
+          allow(URL_TRANSFORMER).to receive(:resolve)
             .and_return('http://google.com')
 
           get '/some_valid_short_code'

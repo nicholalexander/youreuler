@@ -25,10 +25,6 @@ describe 'UrlTransformer' do
     expect(size).to equal(62)
   end
 
-  it 'should have a CODE_LENGTH initialized to 5' do
-    expect(UrlTransformer::CODE_LENGTH).to eq(5)
-  end
-
   it 'should have a REDIS_RETRIES initialized to 5' do
     expect(UrlTransformer::REDIS_RETRIES).to eq(5)
   end
