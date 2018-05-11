@@ -35,7 +35,8 @@ describe 'UrlTransformer' do
     end
 
     it 'should have a base url' do
-      expect(@url_transformer.instance_variable_get(:@base_url)).to eq('base_url')
+      expect(@url_transformer.instance_variable_get(:@base_url))
+        .to eq('base_url')
     end
 
     it 'should have a redis_client' do

@@ -1,5 +1,7 @@
-# For shortening.
+# frozen_string_literal: true
+
 class UrlTransformer
+  # Subclass to handle specifics of shortening.
   class Shortener < UrlTransformer
     SHORT_CODE_LENGTH = 5
 
@@ -27,6 +29,5 @@ class UrlTransformer
         short_code: short_code
       }
     end
-
   end
 end

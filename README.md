@@ -1,10 +1,6 @@
 # youreuler
 
-A cutting edge state of the art URL shortener.  (And Elongator.  Eventually.)
-
-## A Note On the Naming
-
-A guy I met once pronounced URLs as "you're ul".  But with no real empty space between the two words.  And that was different.  It is only a happy accident that the name I picked also says Your Euler.
+A cutting edge state of the art URL shortener.  And Enlengthener.
 
 ## Installation
 
@@ -23,6 +19,25 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 ## Deployment
 
 This is a heroku app deployed at http://www.youreuler.com/
+
+## TODOs & Notes
+
+1. custom errors - See discussion above.
+2. no api slugs and what else - Maybe to prevent using the slug /api/.
+3. match only the slug with no short code - So that you could have links of www.youreuler.com/blurgh instead of www.youreuler.com/blurgh/as34d3.  
+
+### Yaks
+
+1. guard - I wasn't happy with the server reloading and would like to fix.
+2. monitoring - I've been wanting to play with Honeybadger
+3. ci & deployment - I haven't seen that Heroku CI pipeline setup and would like to play with that.
+4. ssl - Likewise, I haven't done SSL with Heroku.
+5. rake run leaves zombie process - Not exactly sure what's up with this but would like to fix.
+
+### More fun Ideas
+
+1. Register callback actions on link shortening.
+2. Enlengthen
 
 ## Discussion
 
@@ -54,21 +69,6 @@ Lastly, if, based on the Redis/Sinatra research, it would make sense to instanti
 
 I don't think I've ever not used a scaffold for a Sinatra application like this, but there was a lot of setup and tooling which was mostly fun.  I'm not sure I like not having an app folder, with the server in it, but this setup seemed easiest for the scope of what needed to be done.
 
-## TODOs & Notes
+## A Note On the Naming
 
-1. custom errors - See discussion above.
-2. no api slugs and what else - Maybe to prevent using the slug /api/.
-3. match only the slug with no short code - So that you could have links of www.youreuler.com/blurgh instead of www.youreuler.com/blurgh/as34d3.  
-
-### Yaks
-
-1. guard - I wasn't happy with the server reloading and would like to fix.
-2. monitoring - I've been wanting to play with Honeybadger
-3. ci & deployment - I haven't seen that Heroku CI pipeline setup and would like to play with that.
-4. ssl - Likewise, I haven't done SSL with Heroku.
-5. rake run leaves zombie process - Not exactly sure what's up with this but would like to fix.
-
-### More fun Ideas
-
-1. Register callback actions on link shortening.
-2. Enlengthen
+A guy I met once pronounced URLs as "you're ul".  But with no real empty space between the two words.  And that was different.  It is only a happy accident that the name I picked also says Your Euler.
