@@ -31,6 +31,10 @@ get '/' do
   send_file 'views/index.html'
 end
 
+get '/loaderio-956ae1ea465e5c4992b272052969f6a3/' do
+  send_file 'loaderio.txt'
+end
+
 namespace '/api' do
   get '/' do
     send_file 'views/api_instructions.json'
