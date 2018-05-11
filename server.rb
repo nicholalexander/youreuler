@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
+require 'newrelic_rpm'
 require 'redis'
 
 require './lib/url_transformer'

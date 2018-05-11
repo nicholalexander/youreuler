@@ -22,14 +22,13 @@ This is a heroku app deployed at http://www.youreuler.com/
 
 ## TODOs & Notes
 
-1. custom errors - See discussion above.
-2. no api slugs and what else - Maybe to prevent using the slug /api/.
 3. match only the slug with no short code - So that you could have links of www.youreuler.com/blurgh instead of www.youreuler.com/blurgh/as34d3.  
+4. custom maintenence
 
 ### Yaks
 
 1. guard - I wasn't happy with the server reloading and would like to fix.
-2. monitoring - I've been wanting to play with Honeybadger
+2. monitoring - I've been wanting to play with Honeybadger / Newrelic
 3. ci & deployment - I haven't seen that Heroku CI pipeline setup and would like to play with that.
 4. ssl - Likewise, I haven't done SSL with Heroku.
 5. rake run leaves zombie process - Not exactly sure what's up with this but would like to fix.
