@@ -27,12 +27,12 @@ handle_api_request_from_params = lambda do
   process_payload(request_payload)
 end
 
-get '/' do
+get '/?' do
   send_file 'views/index.html'
 end
 
 namespace '/api' do
-  get '/' do
+  get '/?' do
     send_file 'views/api_instructions.json'
   end
 
