@@ -3,8 +3,6 @@
 require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/namespace'
-require 'sinatra/custom_logger'
-require 'logger'
 require 'redis'
 
 require './lib/url_transformer'
@@ -16,8 +14,6 @@ if development? || test?
   require 'sinatra/reloader'
   require 'pry'
 end
-
-set :logger, Logger.new(STDOUT)
 
 configure do
   redis = Redis.new(url: ENV['REDIS_URL'])
@@ -32,17 +28,14 @@ handle_api_request_from_params = lambda do
 end
 
 get '/' do
+  puts '999999999999999999999999999999999'
   send_file 'views/index.html'
-  logger.error 'INDEX PAGE'
-  puts "HELLO!"
-end
-
-get '/loaderio-956ae1ea465e5c4992b272052969f6a3/' do
-  send_file 'loaderio.txt'
 end
 
 namespace '/api' do
   get '/' do
+    puts '23894570230948572309857'
+    puts '23894570230948572309857'
     send_file 'views/api_instructions.json'
   end
 
