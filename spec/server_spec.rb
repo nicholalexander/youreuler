@@ -19,6 +19,14 @@ describe 'the server' do
                 'sample_response'])
     end
 
+    it 'should resolve /api/ and api/' do
+      get '/api'
+      expect(last_response.status).to eq(200)
+
+      get '/api/'
+      expect(last_response.status).to eq(200)
+    end
+
     describe '/api/shorten' do
       context 'with a valid body type' do
         it 'should respond with a shortened url' do
