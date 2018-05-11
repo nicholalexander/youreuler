@@ -5,7 +5,7 @@ require 'sinatra/json'
 require 'sinatra/namespace'
 require 'redis'
 
-require './lib/url_shortener'
+require './lib/url_transformer'
 
 if development? || test?
   require 'dotenv'
@@ -17,7 +17,7 @@ end
 
 configure do
   redis = Redis.new(url: ENV['REDIS_URL'])
-  URL_SHORTENER = UrlShortener.new(ENV['BASE_URL'], redis)
+  URL_TRANSFORMER = UrlTransformer.new(ENV['BASE_URL'], redis)
 end
 
 handle_api_request_from_params = lambda do
@@ -53,9 +53,9 @@ end
 get '/*' do
   key = params['splat'].join
   begin
-    url = URL_SHORTENER.resolve(key)
+    url = URL_TRANSFORMER.resolve(key)
     redirect url if url
-  rescue UrlShortener::Error::ResolveKey => e
+  rescue UrlTransformer::Error::ResolveKey => e
     status e.status_code
   end
 end
@@ -66,15 +66,15 @@ end
 
 helpers do
   def process_payload(request_payload, mode = :shorten)
-    URL_SHORTENER.validate_payload(request_payload)
+    UrlTransformer::PayloadValidator.call(request_payload)
     if mode == :shorten
-      response = URL_SHORTENER.shorten(request_payload)
+      response = URL_TRANSFORMER.shorten(request_payload)
     elsif mode == :enlengthen
-      response = URL_SHORTENER.enlengthen(request_payload)
+      response = URL_TRANSFORMER.enlengthen(request_payload)
     end
 
     json response
-  rescue UrlShortener::Error => e
+  rescue UrlTransformer::Error => e
     status e.status_code
     json e.to_json
   end

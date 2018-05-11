@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class UrlShortener
+class UrlTransformer
   class Error
     # Error when key does not exist in redis
-    class InvalidSlug < UrlShortener::Error
+    class ResolveKey < UrlTransformer::Error
       def initialize
         super
-        @status_code = 400
+        @status_code = 404
       end
 
       def message
-        'Slug invalid.  "api" is restricted from being in the path - sorry.'
+        'Unable to resolve key - Not Found'
       end
     end
   end

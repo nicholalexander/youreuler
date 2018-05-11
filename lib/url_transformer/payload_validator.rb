@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UrlShortener
+class UrlTransformer
   # Validate user provided payload
   class PayloadValidator
     def self.call(payload)
@@ -12,12 +12,12 @@ class UrlShortener
       private
 
       def check_original_url(payload)
-        raise UrlShortener::Error::InvalidPayload unless
+        raise UrlTransformer::Error::InvalidPayload unless
           payload.keys.include? 'original_url'
       end
 
       def check_slug(slug)
-        raise UrlShortener::Error::InvalidSlug if slug =~ /api/
+        raise UrlTransformer::Error::InvalidSlug if slug =~ /api/
       end
     end
   end

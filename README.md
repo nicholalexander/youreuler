@@ -30,15 +30,15 @@ This was a fun project!
 
 ### Redis Client
 
-I found one of the most interesting questions to be where the redis client lives.  If it is included in the UrlShortener or if the server knows about it.  I think there were two considerations, one: if the UrlShortener knows how to determine if it has a unique link or not so that other links are not overwritten.  Ultimately, I decided to let the UrlShortener know how to save and resolve it's links, so that gives it access to the redis client.
+I found one of the most interesting questions to be where the redis client lives.  If it is included in the UrlTransformer or if the server knows about it.  I think there were two considerations, one: if the UrlTransformer knows how to determine if it has a unique link or not so that other links are not overwritten.  Ultimately, I decided to let the UrlTransformer know how to save and resolve it's links, so that gives it access to the redis client.
 
-The other consideration was how the UrlShortener should be instantiated within the server.  In setting it up in the configure block, I think I've limited the number of connections that can be created against the client, but I need to do more research on how Sinatra handles each request and what that impact would be.  For now, I feel it's symantically in the right place.
+The other consideration was how the UrlTransformer should be instantiated within the server.  In setting it up in the configure block, I think I've limited the number of connections that can be created against the client, but I need to do more research on how Sinatra handles each request and what that impact would be.  For now, I feel it's symantically in the right place.
 
 ### Server
 
 The sinatra server is setup as a classic sinatra application.  The only slightly strange thing was using the lambda to handle the processing of the api request from the params.  I set it up this way so that I could handle posts to the api route with params but also get's, so you can get it from your browswer without setting anything up.  I know that's not standard, but I thought it'd be nice to be able to see it working without having to use Postman or curl.
 
-### UrlShortener
+### UrlTransformer
 
 Where most of the work gets done.  Aside from the server handling all the server things, all the logic for shortening the urls happens here.  I had considered packaging this as a gem and including it into the sinatra project that way - as that might have helped with some of the organization decisions of the project, but maybe next time.
 
@@ -48,7 +48,7 @@ The big missing element here is error handling.  Next on my todo list would be b
 
 I also was thinking that I'd like to add a `enlengthen` method that does the opposite of `shorten`.  I was thinking that would be a good litmus test as to how flexible the code is and it feels like there would have to be a lot of changes to make that semantic and nice.
 
-Lastly, if, based on the Redis/Sinatra research, it would make sense to instantiate a UrlShortener class for each request, I'd like to add a to_json method to make rendering the response work nicely with sinatra.
+Lastly, if, based on the Redis/Sinatra research, it would make sense to instantiate a UrlTransformer class for each request, I'd like to add a to_json method to make rendering the response work nicely with sinatra.
 
 ### Scaffolding and Tooling
 

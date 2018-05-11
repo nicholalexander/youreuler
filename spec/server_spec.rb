@@ -49,12 +49,12 @@ describe 'the server' do
     describe '/*' do
       context 'when a key is found' do
         before do
-          @original_url_shortener = URL_SHORTENER
-          stub_const('URL_SHORTENER', double(URL_SHORTENER))
+          @original_url_transformer = URL_TRANSFORMER
+          stub_const('url_transformer', double(url_transformer))
         end
 
         it 'should redirect to a url' do
-          allow(URL_SHORTENER).to receive(:resolve)
+          allow(url_transformer).to receive(:resolve)
             .and_return('http://google.com')
 
           get '/some_valid_short_code'

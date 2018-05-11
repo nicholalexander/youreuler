@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class UrlShortener
+class UrlTransformer
   class Error
     # Error when key does not exist in redis
-    class InvalidPayload < UrlShortener::Error
+    class InvalidSlug < UrlTransformer::Error
       def initialize
         super
         @status_code = 400
       end
 
       def message
-        'Payload invalid.  Make sure you specify original_url key or parameter.'
+        'Slug invalid.  "api" is restricted from being in the path - sorry.'
       end
     end
   end

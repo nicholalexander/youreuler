@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UrlShortener
+class UrlTransformer
   # Custom base error class
   class Error < StandardError
     attr_reader :status_code

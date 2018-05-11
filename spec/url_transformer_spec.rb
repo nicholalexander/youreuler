@@ -1,49 +1,49 @@
 # frozen_string_literal: true
 
-require 'url_shortener'
+require 'url_transformer'
 require 'mock_redis'
 
-describe 'UrlShortener' do
+describe 'UrlTransformer' do
   it 'should have a charachter space' do
-    character_space = UrlShortener::CHARACTER_SPACE
+    character_space = UrlTransformer::CHARACTER_SPACE
     expect(character_space).to_not be(nil)
   end
 
   it 'should have upper case and lower case letters' do
-    character_space = UrlShortener::CHARACTER_SPACE
+    character_space = UrlTransformer::CHARACTER_SPACE
     expect(character_space).to include('x')
     expect(character_space).to include('F')
   end
 
   it 'should also have numbers' do
-    character_space = UrlShortener::CHARACTER_SPACE
+    character_space = UrlTransformer::CHARACTER_SPACE
     expect(character_space).to include('3')
   end
 
   it 'should have a CHARACTER_SPACE_SIZE of 62' do
-    size = UrlShortener::CHARACTER_SPACE_SIZE
+    size = UrlTransformer::CHARACTER_SPACE_SIZE
     expect(size).to equal(62)
   end
 
   it 'should have a CODE_LENGTH initialized to 5' do
-    expect(UrlShortener::CODE_LENGTH).to eq(5)
+    expect(UrlTransformer::CODE_LENGTH).to eq(5)
   end
 
   it 'should have a REDIS_RETRIES initialized to 5' do
-    expect(UrlShortener::REDIS_RETRIES).to eq(5)
+    expect(UrlTransformer::REDIS_RETRIES).to eq(5)
   end
 
   context 'when it is intitialized' do
     before do
-      @url_shortener = UrlShortener.new('base_url', 'redis_client')
+      @url_transformer = UrlTransformer.new('base_url', 'redis_client')
     end
 
     it 'should have a base url' do
-      expect(@url_shortener.instance_variable_get(:@base_url)).to eq('base_url')
+      expect(@url_transformer.instance_variable_get(:@base_url)).to eq('base_url')
     end
 
     it 'should have a redis_client' do
-      expect(@url_shortener.instance_variable_get(:@redis))
+      expect(@url_transformer.instance_variable_get(:@redis))
         .to eq('redis_client')
     end
   end
@@ -52,9 +52,9 @@ describe 'UrlShortener' do
     before do
       @redis_instance = spy(MockRedis.new)
       allow(@redis_instance).to receive(:exists).and_return(false)
-      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+      @url_transformer = UrlTransformer.new('http://base_url/', @redis_instance)
       payload = { 'original_url' => 'http://google.com/' }
-      @response = @url_shortener.shorten(payload)
+      @response = @url_transformer.shorten(payload)
     end
 
     it 'should return a response with the original_url' do
@@ -72,7 +72,7 @@ describe 'UrlShortener' do
 
     it 'should return a short code built from the character_space' do
       expect(@response[:short_code].split('').all? do |x|
-        UrlShortener::CHARACTER_SPACE.include?(x)
+        UrlTransformer::CHARACTER_SPACE.include?(x)
       end).to be true
     end
 
@@ -87,7 +87,7 @@ describe 'UrlShortener' do
           'original_url' => 'http://google.com/',
           'slug' => '/blurgh'
         }
-        @response = @url_shortener.shorten(payload)
+        @response = @url_transformer.shorten(payload)
 
         expect(@response[:short_code].include?('blurgh')).to be true
       end
@@ -97,7 +97,7 @@ describe 'UrlShortener' do
           'original_url' => 'http://google.com/',
           'slug' => '/blurgh/'
         }
-        @response = @url_shortener.shorten(payload)
+        @response = @url_transformer.shorten(payload)
         expect(@response[:short_url]).to match(%r{base_url\/blurgh\/})
       end
     end
@@ -112,7 +112,7 @@ describe 'UrlShortener' do
       it 'should raise an error with a message about the keyspace' do
         allow(@redis_instance).to receive(:exists).and_return(true)
         payload = { 'original_url' => 'http://google.com/' }
-        expect { @url_shortener.shorten(payload) }
+        expect { @url_transformer.shorten(payload) }
           .to raise_error(RuntimeError, /Keyspace/)
       end
     end
@@ -123,9 +123,9 @@ describe 'UrlShortener' do
       @redis_instance = spy(MockRedis.new)
       allow(@redis_instance).to receive(:get)
         .and_return('http://some_full_long_url')
-      @url_shortener = UrlShortener.new('http://base_url/', @redis_instance)
+      @url_transformer = UrlTransformer.new('http://base_url/', @redis_instance)
 
-      expect(@url_shortener.resolve('valid_short_code'))
+      expect(@url_transformer.resolve('valid_short_code'))
         .to eq('http://some_full_long_url')
     end
   end
