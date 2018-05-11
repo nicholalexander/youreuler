@@ -51,7 +51,7 @@ namespace '/api' do
 end
 
 get '/*' do
-  logger.info request
+  logger.info request.referrer
   key = params['splat'].join
   begin
     url = URL_TRANSFORMER.resolve(key)
