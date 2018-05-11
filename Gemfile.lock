@@ -17,6 +17,7 @@ GEM
     mock_redis (0.18.0)
     multi_json (1.13.1)
     mustermann (1.0.2)
+    newrelic_rpm (5.1.0.344)
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
@@ -84,6 +85,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   mock_redis
+  newrelic_rpm
   pry
   rack-test
   rake

@@ -7,6 +7,7 @@ gem 'rake'
 gem 'redis'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'newrelic_rpm'
 
 group :test, :development do
   gem 'dotenv'
