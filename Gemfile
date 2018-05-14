@@ -3,11 +3,11 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
+gem 'newrelic_rpm'
 gem 'rake'
 gem 'redis'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'newrelic_rpm'
 
 group :test, :development do
   gem 'dotenv'

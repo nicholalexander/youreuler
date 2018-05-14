@@ -19,4 +19,16 @@ describe 'PayloadValidator' do
     expect { UrlTransformer::PayloadValidator.call(invalid_payload) }
       .to raise_error(UrlTransformer::Error::InvalidSlug)
   end
+
+  it 'should raise an error with a url without a scheme' do
+    invalid_payload = { 'original_url' => 'www.google.com' }
+    expect { UrlTransformer::PayloadValidator.call(invalid_payload) }
+      .to raise_error(UrlTransformer::Error::InvalidUrl)
+  end
+
+  it 'should raise an error with a url without a valid host' do
+    invalid_payload = { 'original_url' => 'http://google' }
+    expect { UrlTransformer::PayloadValidator.call(invalid_payload) }
+      .to raise_error(UrlTransformer::Error::InvalidUrl)
+  end
 end
