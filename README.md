@@ -24,6 +24,7 @@ This is a heroku app deployed at http://www.youreuler.com/
 
 3. match only the slug with no short code - So that you could have links of www.youreuler.com/blurgh instead of www.youreuler.com/blurgh/as34d3.  
 4. custom maintenence
+5. validate url in api request
 
 ### Yaks
 
