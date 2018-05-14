@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe 'ResolveKey' do
+describe 'InvalidSlug' do
   it 'should have a not found status' do
     error = UrlTransformer::Error::InvalidSlug.new
     expect(error.status_code).to be(400)
