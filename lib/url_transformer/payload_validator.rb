@@ -30,6 +30,7 @@ class UrlTransformer
       end
 
       def url_matcher
+        # credit to http://urlregex.com/
         %r{\A(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})
           (?!127(?:\.\d{1,3}){3})
           (?!169\.254(?:\.\d{1,3}){2})
