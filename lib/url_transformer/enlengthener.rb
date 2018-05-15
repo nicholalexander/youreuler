@@ -36,7 +36,7 @@ class UrlTransformer
     def build_redis_object(original_url, properties)
       {
           "redirect_to": original_url,
-          "properties": properties 
+          "properties": properties.to_h
       }
     end
 
