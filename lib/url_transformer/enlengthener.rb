@@ -15,7 +15,7 @@ class UrlTransformer
 
       properties = process_link_properties(payload['properties'])
 
-      write_to_redis(long_code, build_redis_object(original_url, properties))
+      write_to_redis(long_code, build_redis_object(original_url, properties).to_json)
       build_response(original_url, long_url, long_code, properties)
     end
 
@@ -33,7 +33,7 @@ class UrlTransformer
       OpenStruct.new(expiration_data)
     end
 
-    def build_redis_object(original_url, properties) 
+    def build_redis_object(original_url, properties)
       {
           "redirect_to": original_url,
           "properties": properties 

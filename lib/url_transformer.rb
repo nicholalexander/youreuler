@@ -37,7 +37,9 @@ class UrlTransformer
   end
 
   def resolve(key)
-    redirect_link = @redis.get(key)
+    data = JSON.parse(@redis.get(key))
+    redirect_link = data['redirect_to']
+    # TODO: check against and update properties!
     raise UrlTransformer::Error::ResolveKey unless redirect_link
     redirect_link
   end
