@@ -73,6 +73,15 @@ A guy I met once pronounced URLs as "you're ul".  But with no real empty space b
 
 ----
 
+{
+  "original_url":"http://www.google.com",
+  "properties": {
+    "expires_after":{
+      "resolutions": 3
+    }
+  }
+}   
+
 Sample request?
 
 Time in UTC: DateTime.now.new_offset(0)
