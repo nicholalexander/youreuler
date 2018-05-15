@@ -13,7 +13,11 @@ class UrlTransformer
       long_code = generate_unique_code(payload['slug'])
       long_url = build_url(long_code)
 
-      properties = process_link_properties(payload['properties'])
+      if payload['properties']
+        properties = process_link_properties(payload['properties'])
+      else
+        properties = {}
+      end
 
       write_to_redis(long_code, build_redis_object(original_url, properties).to_json)
       build_response(original_url, long_url, long_code, properties)
