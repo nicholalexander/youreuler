@@ -6,7 +6,9 @@ require 'sinatra/namespace'
 require 'newrelic_rpm'
 require 'redis'
 
+require './lib/verifier'
 require './lib/url_transformer'
+
 
 if development? || test?
   require 'dotenv'

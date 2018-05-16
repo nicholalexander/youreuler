@@ -14,7 +14,7 @@ class UrlTransformer
       long_url = build_url(long_code)
 
       if payload['properties']
-        properties = process_link_properties(payload['properties'])
+        properties = process_link_properties(payload['properties'], original_url)
       else
         properties = {}
       end
@@ -29,18 +29,35 @@ class UrlTransformer
       SecureRandom.urlsafe_base64(256)
     end
 
-    def process_link_properties(properties)
-      process_expiration(properties['expires_after']) if properties['expires_after']
+    def process_link_properties(properties, original_url)
+      output_properties_hash = process_expiration(properties['expires_after']) if properties['expires_after']
+      output_properties_hash.merge!(process_verification(properties['keybase_verified'], original_url)) if properties['keybase_verified']
     end
 
     def process_expiration(expiration_data)
-      OpenStruct.new(expiration_data)
+      OpenStruct.new(expiration_data).to_h
     end
 
     def build_redis_object(original_url, properties)
       {
           "redirect_to": original_url,
           "properties": properties.to_h
+      }
+    end
+
+    def process_verification(message, original_url)
+      verifier = Verifier.new(message['data'], message['keybase_username'])
+      verified = verifier.verify
+      if verified
+        url = verifier.get_url
+
+        raise "Not verified" unless (url == original_url)
+      end
+      {
+        verification: {
+          verified: true,
+          details: message.to_h
+        }
       }
     end
 
