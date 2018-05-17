@@ -31,11 +31,11 @@ handle_api_request_from_params = lambda do
 end
 
 get '/?' do
-  send_file 'views/index.html'
+  erb :index
 end
 
 get '/expired' do
-  send_file 'views/expired.html'
+  erb :expired
 end
 
 get '/claim/?' do
@@ -79,7 +79,7 @@ get '/*' do
 end
 
 not_found do
-  send_file 'views/404.html', status: 404
+  erb :four_oh_four, status: 404
 end
 
 helpers do

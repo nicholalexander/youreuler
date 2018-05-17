@@ -1,0 +1,54 @@
+<h1> youreuler </h1>
+
+<p> Do you have a URL?  Is it too long?  We have an api for that!  Check it! </p>
+
+<p> Send a <code> POST </code> request to <code> /api/shorten </code> with the following body:
+
+<pre>
+  {
+    "original_url": "http://google.com/"
+  }
+</pre>
+
+And we'll send you back something like this:
+
+<pre>
+  {
+    "original_url": "http://google.com/",
+    "short_url": "http://www.youreuler.com/Itn0aD",
+    "short_code": "Itn0aD"
+  }
+</pre>
+
+<p>So you're one of those cgi, php sorts that likes to send parameters in the url?  Fine.  Post it to:
+
+<pre> 
+  /api/shorten/?original_url=http://google.com/&slug='blonk'
+</pre> 
+
+and see if you don't get something nice back.  And while we're at it, you can just GET it so you get something nice in the browser.</p>
+
+<p>Why, yes, you are very welcome.</p>
+
+<p>But god damn it, Jim, you're not here for short URLs, are you?!  Of course not!  You need long ones.  Long ones that do wierd things, like disappear!  We've got those too.  Send the same json request to <code> /api/enlengthen </code> and you'll get yourself a real link. The other routes aren't available.  And won't be.<p>
+
+<p>On top of that, we do you one better for the enlengthenment! <CODE>POST</CODE> this baby up.</p>
+
+<pre>
+  {
+    "original_url":"http://www.google.com",
+    "properties": {
+      "expires_after": {
+        "resolutions": 1
+      }
+    }
+  }
+</pre>
+
+<p>And then it's gone forever!  This site uses no metrics beyond error tracking, no advertising, no other kind of tracking, and once your YOUREUL is expired, it's original destination is erased, forever.  Also, there are no backups of our Redis store.</p>
+
+<p>Why, though?  Why?</p>
+
+<p>We don't know yet.</p>
+
+<p>A brief note on the naming.  I met a man once who pronounced URL's not as it was meant to be pronounced, YOU-ARE-ELL, but rather as a word, thusly: YOU'RE UL.  But as one word.  Youreul.  Thusly so we are named, in honor of that great and brave soul who flaunted his individuality in the face of both tradition and social expectations.  We celebrate you, dear sir.</p>

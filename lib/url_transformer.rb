@@ -39,7 +39,7 @@ class UrlTransformer
   def resolve(key)
     return key if key == 'expired'
     data = @redis.get(key)
-    return if data.nil?
+    raise UrlTransformer::Error::ResolveKey if data.nil?
     data = JSON.parse(data)
     data = update_data(data, key)
     write_to_redis(key, data.to_json)
