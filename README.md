@@ -31,10 +31,12 @@ This is a heroku app deployed at http://www.youreuler.com/
 3. ci & deployment - I haven't seen that Heroku CI pipeline setup and would like to play with that.
 4. ssl - Likewise, I haven't done SSL with Heroku.
 5. rake run leaves zombie process - Not exactly sure what's up with this but would like to fix.
+6. heroku staging env.
 
 ### More fun Ideas
 
 1. Register callback actions on link shortening.
+2. encrypt / sign url
 
 ## Discussion
 
