@@ -119,4 +119,14 @@ what we put into redis:
 }
 ```
 
-```
+---
+
+Workflow:
+
+1. Request a link with a stake. (Punt on how to actually put money on it)
+  * mark as staked
+  * track value (in redis?)
+
+2. Resolve a staked link:
+  Before redirecting go to stake page.  explain stake and provide key?
+  Create 
