@@ -41,7 +41,7 @@ class UrlTransformer
     data = @redis.get(key)
     return if data.nil?
     data = JSON.parse(data)
-    data = update_data(data)
+    data = update_data(data, key)
     write_to_redis(key, data.to_json)
     redirect_link = data['redirect_to']
     raise UrlTransformer::Error::ResolveKey unless redirect_link
@@ -50,9 +50,15 @@ class UrlTransformer
 
   private
 
-  def update_data(data)
+  def update_data(data, key)
     if data['properties']['resolutions'] && data['properties']['resolutions'] > 0
       data['properties']['resolutions'] -= 1
+    elsif data['properties']['stake']
+      if data['properties']['stake']['resolved']
+        data['redirect_to'] = "/claim?value=#{data['properties']['stake']['value']}&key=#{key}"
+      else
+        data['properties']['stake']['resolved'] = true
+      end
     else
       data['redirect_to'] = '/expired'
     end
