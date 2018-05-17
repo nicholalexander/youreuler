@@ -30,8 +30,10 @@ class UrlTransformer
     end
 
     def process_link_properties(properties, original_url)
-      output_properties_hash = process_expiration(properties['expires_after']) if properties['expires_after']
-      output_properties_hash.merge!(process_verification(properties['keybase_verified'], original_url)) if properties['keybase_verified']
+      output_properties = {}
+      output_properties.merge!(process_expiration(properties['expires_after'])) if properties['expires_after']
+      output_properties.merge!(process_verification(properties['keybase_verified'], original_url)) if properties['keybase_verified']
+      output_properties.merge!(process_stake(properties['stake'])) if properties['stake']
     end
 
     def process_expiration(expiration_data)
@@ -60,6 +62,20 @@ class UrlTransformer
         }
       }
     end
+
+    def process_stake(stake_data) 
+      # do some work with the money?
+      stake_value = stake_data['value']
+
+      {
+        stake: {
+          value: stake_value,
+          resolved: false,
+          completed: false
+        }
+      }
+    end
+
 
     def build_response(original_url, long_url, long_code, properties)
       {

@@ -38,6 +38,13 @@ get '/expired' do
   send_file 'views/expired.html'
 end
 
+get '/claim/?' do
+  value = params['value']
+  key = params['key']
+
+  erb :claim, locals: {key: key, value: value}
+end
+
 get '/loaderio-956ae1ea465e5c4992b272052969f6a3/' do
   send_file 'loaderio-956ae1ea465e5c4992b272052969f6a3.txt'
 end

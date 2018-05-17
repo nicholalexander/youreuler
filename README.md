@@ -121,4 +121,31 @@ what we put into redis:
 }
 ```
 
+for stakes - request
+
+```json
+{
+  "original_url":"http://www.google.com",
+  "properties": {
+    "stake": {
+      "value": 3
+    },   
+  }
+}
+```
+
+```json
+{
+  "xxx-key-xxx": 
+    {
+      "redirect_url": "http://www.google.com",
+      "properties": {
+        "stake": {
+          "value": 3,
+          "resolved": false,
+          "completed": false
+        }
+      }
+    }
+}
 ```
