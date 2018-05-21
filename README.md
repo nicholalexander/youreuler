@@ -37,6 +37,7 @@ This is a heroku app deployed at http://www.youreuler.com/
 
 1. Register callback actions on link shortening.
 2. encrypt / sign url
+3. apivore / swagger / rspec docs.
 
 ## A Note On the Naming
 
