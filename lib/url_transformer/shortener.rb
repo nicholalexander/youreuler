@@ -10,12 +10,18 @@ class UrlTransformer
 
       short_code = generate_unique_code(payload['slug'])
       short_url = build_url(short_code)
-
-      write_to_redis(short_code, original_url)
+      write_to_redis(short_code, build_redis_object(original_url, {}).to_json)
       build_response(original_url, short_url, short_code)
     end
 
     private
+
+    def build_redis_object(original_url, properties)
+      {
+          "redirect_to": original_url,
+          "properties": properties.to_h
+      }
+    end
 
     def generate_code
       (0..SHORT_CODE_LENGTH)
