@@ -40,10 +40,13 @@ class UrlTransformer
     return key if key == 'expired'
     data = @redis.get(key)
     raise UrlTransformer::Error::ResolveKey if data.nil?
+
     data = JSON.parse(data)
+    redirect_link = data['redirect_to']
+
     data = update_data(data, key)
     write_to_redis(key, data.to_json)
-    redirect_link = data['redirect_to']
+
     raise UrlTransformer::Error::ResolveKey unless redirect_link
     redirect_link
   end
